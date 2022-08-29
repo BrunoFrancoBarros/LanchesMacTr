@@ -45,6 +45,6 @@ namespace LanchesMac.Models
         public bool EmEstoque { get; set; }
 
         public int CategoriaId { get; set; }
-        public virtual Categoria categoria { get; set; }
+        public virtual Categoria Categoria { get; set; }
     }
 }
