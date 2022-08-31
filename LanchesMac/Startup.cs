@@ -1,4 +1,5 @@
 ﻿using LanchesMac.Context;
+using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,14 @@ public class Startup
         //Registrando os serviços de categoria e lanche
         services.AddTransient<ILancheRepository, LancheRepository>();
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+        services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
+
+        //Para utilizar o session
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+        //Para utilizar a session
+        services.AddMemoryCache();
+        services.AddSession();
 
         services.AddControllersWithViews();
     }
@@ -42,6 +51,7 @@ public class Startup
         }
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+        app.UseSession();
 
         app.UseRouting();
 
